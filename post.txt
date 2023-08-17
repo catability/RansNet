@@ -1,0 +1,21 @@
+# POST 보내기
+
+http --json POST http://127.0.0.1:8000/report/ report_title="요즘 이 렌섬웨어가 유행하나보네요" reporter_name="길동삼" reporter_contact="010-1234-5678" reporter_email="ransom@example.ran" accident_time="2003-03-12 13:17:22" cognition_time="2023-01-13 08:11:22" total_pc="16" total_server="7" damaged_pc="9" damaged_server="3" accident_details="잘 모르겠어요" action_details="안전모드 부팅하고,,," encrypted_file_ext="ran" current_status="기타" backup_status="전체백업" ransom_status="True" report_status="False"
+
+http --json POST http://127.0.0.1:8000/report/ report_title="랜섬웨어 극성이다 정말" reporter_name="길동이" reporter_contact="010-4235-7892" reporter_email="naver@naver.com" accident_time="2023-5-23 09:46:21" cognition_time="2023-07-22 08:11:22" total_pc="6" total_server="2" damaged_pc="2" damaged_server="0" accident_details="잘못 눌렀는데,," action_details="바로 꺼가지고 괜찮았어요" encrypted_file_ext="ran" current_status="기타" backup_status="없음" ransom_status="0" report_status="1"
+
+http --json POST http://127.0.0.1:8000/report/ report_title="Ransomware T.T" reporter_name="길동일" reporter_contact="010-8723-7342" reporter_email="google@gnau.codf" accident_time="2016-07-31 21:55:44" cognition_time="2016-08-03 17:25:21" total_pc="9" total_server="3" damaged_pc="1" damaged_server="1" accident_details="스팸 메일이 궁금해서 클릭했는데.." action_details="안전모드 부팅하고,,," encrypted_file_ext="ran" current_status="기타" backup_status="일부백업" ransom_status="1" report_status="1"
+
+http --json POST http://127.0.0.1:8000/report/ report_title="어떻게 해야하죠!!ㅠㅠ" reporter_name="길동삼사오" reporter_contact="010-3783-7343" reporter_email="qwer@Wert.wsfg" accident_time="2003-03-12 13:17:22" cognition_time="2023-01-13 08:11:22" total_pc="46" total_server="5" damaged_pc="41" damaged_server="4" accident_details="네트워크 유입" action_details="점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요" encrypted_file_ext="ran" current_status="개인정보유출" backup_status="없음" ransom_status="0" report_status="1"
+
+http --json POST http://127.0.0.1:8000/report/ report_title="어떻게 해야하죠!!ㅠㅠ" reporter_name="길동삼사오" reporter_contact="010-3783-7343" reporter_email="qwer@Wert.wsfg" accident_time="2003-03-12 13:17:22" cognition_time="2023-01-13 08:11:22" total_pc="46" total_server="5" damaged_pc="41" damaged_server="4" accident_details="네트워크 유입" action_details="점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요" encrypted_file_ext="ran" current_status="개인정보유출" backup_status="없음" ransom_status="0" report_status="1" "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6N30._ndYc4bobKsW5BIf0u_FQYmZEAGDuY1YOvwweytEOf4"
+
+
+# DELETE 보내기
+
+http DELETE http://127.0.0.1:8000/reports/5
+
+
+# MyPage 보내기
+
+http http://127.0.0.1:8000/users/profile/ "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6N30._ndYc4bobKsW5BIf0u_FQYmZEAGDuY1YOvwweytEOf4"

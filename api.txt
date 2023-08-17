@@ -1,0 +1,341 @@
+### 회원가입 ###
+POST /users/sign/
+
+Request Body Data
+
+{
+    # 선택
+    "contact_number": "",
+    "email": "",
+    "full_name": "",
+
+    # 필수
+    "isAgree": "True",
+    "password": "password"
+    "username": "username1"
+}
+
+Response Body Data
+
+# 그냥 상태코드만 설정하는게 나을 듯 하네됴
+{
+    "contact_number": "",
+    "email": "",
+    "full_name": "",
+    "id": 10,
+    "isAgree": true,
+    "reports": [],
+    "username": "username1"
+}
+
+
+### 아이디 중복 확인 ###
+GET /users/sign/check-username/?username=myusername
+
+Response Body Data
+
+# 셋 중에 하나 메시지 전달로 만들어놨어요
+{
+    "error": "Please provide a username.",      # username 못 받음
+    "message": "Username is already taken.",    # username 중복 있음
+    "message": "Username is available."         # username 중복 없음
+}
+
+
+### 로그인 ###
+POST /users/login/
+
+Request Body Data
+
+{
+    "password": "password",
+    "username": "username1"
+}
+
+Response Body Data
+
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTB9.OQsb01jGiCKnahCJFdUa_TKa95MdZsl9bLY7I9T6jAc",
+
+    # 실제 구현에선 빼려고 함
+    "header": {
+        "id": 10
+    },
+    "token": "d34a0c9036a5ef04699a13725f5be0c629c171af"
+}
+
+
+## 이후 클라이언트에서 access_token 계속 헤더에 넣어서 요청 보내기
+
+### 신고 등록 ###
+POST /report/
+
+Request Body Data
+
+{
+    "accident_details": "네트워크 유입",
+    "accident_time": "2003-03-12 13:17:22",
+    "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+    "backup_status": "없음",
+    "cognition_time": "2023-01-13 08:11:22",
+    "current_status": "개인정보유출",
+    "damaged_pc": "41",
+    "damaged_server": "4",
+    "encrypted_file_ext": "ran",
+    "ransom_status": "0",
+    "report_status": "1",
+    "report_title": "어떻게 해야하죠!!ㅠㅠ",
+    "reporter_contact": "010-3783-7343",
+    "reporter_email": "qwer@Wert.wsfg",
+    "reporter_name": "길동삼사오",
+    "total_pc": "46",
+    "total_server": "5"
+}
+
+Response Body Data
+
+# 받은 입력값, 즉 저장한 값 그대로 다시 보내주는데 그냥 상태코드만 설정해도..되겠죠?
+{
+    "accident_details": "네트워크 유입",
+    "accident_time": "2003-03-12T13:17:22Z",
+    "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+    "backup_status": "없음",
+    "cognition_time": "2023-01-13T08:11:22Z",
+    "current_status": "개인정보유출",
+    "damaged_pc": 41,
+    "damaged_server": 4,
+    "encrypted_file_ext": "ran",
+    "id": 8,
+    "ransom_status": false,
+    "report_account": 10,
+    "report_status": true,
+    "report_title": "어떻게 해야하죠!!ㅠㅠ",
+    "reporter_contact": "010-3783-7343",
+    "reporter_email": "qwer@Wert.wsfg",
+    "reporter_name": "길동삼사오",
+    "total_pc": 46,
+    "total_server": 5
+}
+
+
+### 신고 목록 ###
+GET /reports/
+
+Response Body Data
+
+# 리스트?배열?로 보내줌
+[
+    {
+        "accident_details": "네트워크 유입",
+        "accident_time": "2003-03-12T13:17:22Z",
+        "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+        "backup_status": "없음",
+        "cognition_time": "2023-01-13T08:11:22Z",
+        "current_status": "개인정보유출",
+        "damaged_pc": 41,
+        "damaged_server": 4,
+        "encrypted_file_ext": "ran",
+        "id": 1,
+        "ransom_status": false,
+        "report_account": null,
+        "report_status": true,
+        "report_title": "어떻게 해야하죠!!ㅠㅠ",
+        "reporter_contact": "010-3783-7343",
+        "reporter_email": "qwer@Wert.wsfg",
+        "reporter_name": "길동삼사오",
+        "total_pc": 46,
+        "total_server": 5
+    },
+    { ... },
+    ... ... 
+    { ... },
+    {
+        "accident_details": "네트워크 유입",
+        "accident_time": "2003-03-12T13:17:22Z",
+        "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+        "backup_status": "없음",
+        "cognition_time": "2023-01-13T08:11:22Z",
+        "current_status": "개인정보유출",
+        "damaged_pc": 41,
+        "damaged_server": 4,
+        "encrypted_file_ext": "ran",
+        "id": 8,
+        "ransom_status": false,
+        "report_account": 10,
+        "report_status": true,
+        "report_title": "어떻게 해야하죠!!ㅠㅠ",
+        "reporter_contact": "010-3783-7343",
+        "reporter_email": "qwer@Wert.wsfg",
+        "reporter_name": "길동삼사오",
+        "total_pc": 46,
+        "total_server": 5
+    }
+]
+
+
+### 상세 신고 조회 ###
+GET /reports/{id}  ( if id == 8 )
+
+Response Body Data
+
+{
+    "accident_details": "네트워크 유입",
+    "accident_time": "2003-03-12T13:17:22Z",
+    "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+    "backup_status": "없음",
+    "cognition_time": "2023-01-13T08:11:22Z",
+    "current_status": "개인정보유출",
+    "damaged_pc": 41,
+    "damaged_server": 4,
+    "encrypted_file_ext": "ran",
+    "id": 8,
+    "ransom_status": false,
+    "report_account": 10,
+    "report_status": true,
+    "report_title": "어떻게 해야하죠!!ㅠㅠ",
+    "reporter_contact": "010-3783-7343",
+    "reporter_email": "qwer@Wert.wsfg",
+    "reporter_name": "길동삼사오",
+    "total_pc": 46,
+    "total_server": 5
+}
+
+
+### 상세 신고 수정 ###
+PUT /reports/{id}
+
+Request Body Data
+
+# 이 중 수정하고 싶은 필드만 지정
+{
+    "accident_details": "네트워크 유입",
+    "accident_time": "2003-03-12 13:17:22",
+    "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+    "backup_status": "없음",
+    "cognition_time": "2023-01-13 08:11:22",
+    "current_status": "개인정보유출",
+    "damaged_pc": "41",
+    "damaged_server": "4",
+    "encrypted_file_ext": "ran",
+    "ransom_status": "0",
+    "report_status": "1",
+    "report_title": "어떻게 해야하죠!!ㅠㅠ",
+    "reporter_contact": "010-3783-7343",
+    "reporter_email": "qwer@Wert.wsfg",
+    "reporter_name": "길동삼사오",
+    "total_pc": "46",
+    "total_server": "5"
+}
+
+# 만약
+{
+    "reporter_name": "홍길동"
+}
+
+Response Body Data
+
+# 이 응답도  수정완료!! 화면 페이지 보여주는걸로,,,
+{
+    "accident_details": "네트워크 유입",
+    "accident_time": "2003-03-12T13:17:22Z",
+    "action_details": "점심 먹고 왔더니...다 걸려있더라고요 아무것도 못했어요",
+    "backup_status": "없음",
+    "cognition_time": "2023-01-13T08:11:22Z",
+    "current_status": "개인정보유출",
+    "damaged_pc": 41,
+    "damaged_server": 4,
+    "encrypted_file_ext": "ran",
+    "id": 8,
+    "ransom_status": false,
+    "report_account": 10,
+    "report_status": true,
+    "report_title": "어떻게 해야하죠!!ㅠㅠ",
+    "reporter_contact": "010-3783-7343",
+    "reporter_email": "qwer@Wert.wsfg",
+    "reporter_name": "홍길동",
+    "total_pc": 46,
+    "total_server": 5
+}
+
+
+### 상세 신고 삭제 ###
+DELETE /reports/8
+
+따로 없다.
+
+
+### 마이 페이지 ###
+GET /users/profile/
+
+Response Body Data
+
+{
+    "contact_number": "",
+    "email": "",
+    "full_name": "",
+    "id": 10,
+    "isAgree": true,
+    "reports": [
+        {
+            "id": 8,
+            "report_title": "어떻게 해야하죠!!ㅠㅠ"
+        }
+    ],
+    "username": "username1"
+}
+
+
+### 개인정보 수정 ###
+PUT /users/profile/
+
+Request Body Data
+
+# 이 중 수정하고 싶은 필드만 지정
+{
+    "contact_number": "",
+    "email": "",
+    "full_name": "",
+    "isAgree": true,
+    "username": "username1"
+}
+
+# 만약
+{
+    "username": "Username1"
+}
+
+Response Body Data
+
+{
+    "contact_number": "",
+    "email": "",
+    "full_name": "",
+    "id": 10,
+    "isAgree": true,
+    "reports": [
+        {
+            "id": 8,
+            "report_title": "어떻게 해야하죠!!ㅠㅠ"
+        }
+    ],
+    "username": "Username1"
+}
+
+
+
+
+
+
+
+
+
+pip install django-cors-headers
+
+install_app
+corsheaders
+
+middleware
+corsheader.middleware.CorsMiddleware
+
+CORS_ORIGIN_WHITELIST=['http://127.0.0: local]
+CORS_ALLOW_CREDENTIALS=True
