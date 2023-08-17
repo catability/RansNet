@@ -94,6 +94,33 @@ def report_list(request):
 #         return Response(serializer.data)
 
 
+@api_view(["GET"])
+def report_search(request):
+    search_word = request.GET.get("query")
+
+    if not search_word:
+        return Response(
+            {"error": "Please provide a search word."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    reports = Report.objects.filter(is_deleted=False)
+    # filtered_report= reports.filter((report)-> return )
+    filtered_report = []
+
+    for report in reports:
+        if (
+            search_word in report.report_title
+            or search_word in report.accident_details
+            or search_word in report.action_details
+        ):
+            filtered_report.append(report)
+
+    serializer = ReportSerializer(filtered_report, many=True)
+    # return Response(serializer.data, safe=False)
+    return Response(serializer.data)
+
+
 @csrf_exempt
 @api_view(["GET", "PUT", "DELETE"])
 def report_detail(request, pk):
